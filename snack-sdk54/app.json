@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "name": "Cherry Checkers",
+    "slug": "cherry-checkers",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "backgroundColor": "#4A1022"
+  }
+}
