@@ -1,4 +1,6 @@
 import {
+  CPU_DIFFICULTIES,
+  GAME_MODES,
   GAME_PHASES,
   PIECE_KINDS,
   PLAYERS,
@@ -18,15 +20,26 @@ import {
 import { countPieces, getGameOutcome, getReducedEndgameLimit } from './endConditions';
 import { serializePosition } from './serialization';
 
-export function createInitialGame(previousSettings = {}, sessionWins = null) {
+export function createInitialGame(
+  previousSettings = {},
+  sessionWins = null,
+  modeConfig = null
+) {
   const board = createInitialBoard();
   const currentPlayer = PLAYERS.CREAM;
   const legalTurnSequences = getLegalTurnSequencesForBoard(board, currentPlayer);
   const initialKey = serializePosition(board, currentPlayer);
+  const mode = modeConfig?.mode || GAME_MODES.PVP;
+  const cpuConfig = {
+    difficulty: modeConfig?.difficulty || CPU_DIFFICULTIES.MEDIUM,
+    cpuPlayer: modeConfig?.cpuPlayer || PLAYERS.CHERRY,
+  };
 
   return {
     board,
     currentPlayer,
+    mode,
+    cpuConfig,
     selected: null,
     forcedSequence: null,
     legalTurnSequences,
@@ -65,7 +78,14 @@ export function createInitialGame(previousSettings = {}, sessionWins = null) {
 export function resetGame(previousGame) {
   return createInitialGame(
     previousGame?.settings || {},
-    previousGame?.sessionWins || null
+    previousGame?.sessionWins || null,
+    previousGame
+      ? {
+          mode: previousGame.mode,
+          difficulty: previousGame.cpuConfig?.difficulty,
+          cpuPlayer: previousGame.cpuConfig?.cpuPlayer,
+        }
+      : null
   );
 }
 
@@ -314,6 +334,16 @@ export function gameReducer(game, action) {
       return applyMoveStep(game, action.destination);
     case 'RESTART':
       return resetGame(game);
+    case 'SET_MODE':
+      return createInitialGame(
+        game?.settings || {},
+        { [PLAYERS.CREAM]: 0, [PLAYERS.CHERRY]: 0 },
+        {
+          mode: action.mode,
+          difficulty: action.difficulty,
+          cpuPlayer: action.cpuPlayer,
+        }
+      );
     case 'RESIGN': {
       if (game.phase !== GAME_PHASES.PLAYING) {
         return game;

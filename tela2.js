@@ -58,7 +58,7 @@ export default function Tela2({ navigation }) {
           <Text style={styles.pageTitle}>COMO JOGAR</Text>
           <View style={styles.ribbon}>
             <Text style={styles.ribbonText}>
-              Damas brasileiras • 2 jogadores • 8×8
+              Damas brasileiras • 1 ou 2 jogadores • 8×8
             </Text>
           </View>
 
@@ -84,10 +84,12 @@ export default function Tela2({ navigation }) {
             </View>
 
             <View style={styles.textBlock}>
-              <Text style={styles.ruleTitle}>Controles</Text>
+              <Text style={styles.ruleTitle}>Controles e Modos</Text>
               <Text style={styles.ruleText}>
-                Toque em uma peça destacada e depois no destino iluminado. Use o
-                topo da tela para silenciar sons, reiniciar ou encerrar.
+                Jogue contra a CPU (Fácil, Médio, Difícil ou Mestre) ou com 2
+                jogadores locais. Toque em uma peça destacada e depois no
+                destino iluminado. Use o topo da tela para silenciar sons,
+                reiniciar ou encerrar.
               </Text>
             </View>
 

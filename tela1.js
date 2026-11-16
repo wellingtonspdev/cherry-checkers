@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -12,11 +12,18 @@ import {
   CheckeredOrnament,
   HeroEmblem,
 } from './src/components/CherryEmblem';
+import ModeSelectModal from './src/components/ModeSelectModal';
 import { borders, colors, radius, spacing, typography } from './src/theme';
 
 export default function Tela1({ navigation }) {
   const { width } = useWindowDimensions();
   const isCompact = width < 360;
+  const [modeModalOpen, setModeModalOpen] = useState(false);
+
+  const handleStartGame = (modeConfig) => {
+    setModeModalOpen(false);
+    navigation.navigate('Jogo', modeConfig);
+  };
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
@@ -46,8 +53,8 @@ export default function Tela1({ navigation }) {
               title="JOGAR"
               variant="primary"
               icon={<Text style={styles.btnIconLight}>▶</Text>}
-              onPress={() => navigation.navigate('Jogo')}
-              accessibilityHint="Inicia uma nova partida de damas brasileiras"
+              onPress={() => setModeModalOpen(true)}
+              accessibilityHint="Escolher modo 1 ou 2 jogadores e iniciar partida"
             />
             <CherryButton
               title="INSTRUÇÕES"
@@ -67,6 +74,11 @@ export default function Tela1({ navigation }) {
         </View>
       </ScrollView>
       <CheckeredOrnament />
+      <ModeSelectModal
+        visible={modeModalOpen}
+        onClose={() => setModeModalOpen(false)}
+        onStart={handleStartGame}
+      />
     </SafeAreaView>
   );
 }

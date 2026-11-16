@@ -10,9 +10,17 @@ export default function TurnBanner({
   elapsedMs,
   hasMandatoryCapture,
   isChainActive,
+  isCpuTurn = false,
+  isCpuThinking = false,
 }) {
   const isCream = currentPlayer === PLAYERS.CREAM;
-  const turnLabel = isCream ? 'VEZ DO MARFIM' : 'VEZ DO CEREJA';
+  const turnLabel = isCpuTurn
+    ? isCpuThinking
+      ? 'CPU PENSANDO...'
+      : 'VEZ DA CPU'
+    : isCream
+    ? 'VEZ DO MARFIM'
+    : 'VEZ DO CEREJA';
 
   return (
     <View style={styles.container}>

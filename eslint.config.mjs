@@ -18,6 +18,7 @@ export default [
         window: 'readonly',
         console: 'readonly',
         setTimeout: 'readonly',
+        clearTimeout: 'readonly',
         clearInterval: 'readonly',
         setInterval: 'readonly',
         require: 'readonly',

@@ -19,7 +19,7 @@ import { GAME_PHASES } from './src/game';
 import { useGame } from './src/hooks/useGame';
 import { colors, radius, spacing, typography } from './src/theme';
 
-export default function Tela3({ navigation }) {
+export default function Tela3({ navigation, route }) {
   const { width, height } = useWindowDimensions();
   const isWide = width >= 700;
   const isCompact = width < 360;
@@ -35,8 +35,12 @@ export default function Tela3({ navigation }) {
     confirmResignOpen ||
     isPausedForInstructions;
 
+  const initialModeConfig = route?.params || null;
+
   const {
     game,
+    isCpuTurn,
+    isCpuThinking,
     legalDestinations,
     movablePieceIds,
     hasMandatoryCapture,
@@ -44,7 +48,7 @@ export default function Tela3({ navigation }) {
     restart,
     resign,
     toggleSound,
-  } = useGame(isPaused);
+  } = useGame(isPaused, initialModeConfig);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -88,6 +92,8 @@ export default function Tela3({ navigation }) {
         elapsedMs={game.elapsedMs}
         hasMandatoryCapture={hasMandatoryCapture}
         isChainActive={Boolean(game.forcedSequence)}
+        isCpuTurn={isCpuTurn}
+        isCpuThinking={isCpuThinking}
       />
 
       {statusToast ? (
@@ -100,6 +106,8 @@ export default function Tela3({ navigation }) {
         capturedByPlayer={game.capturedByPlayer}
         sessionWins={game.sessionWins}
         currentPlayer={game.currentPlayer}
+        mode={game.mode}
+        cpuConfig={game.cpuConfig}
       />
 
       <View style={styles.actionStack}>
@@ -166,6 +174,8 @@ export default function Tela3({ navigation }) {
               elapsedMs={game.elapsedMs}
               hasMandatoryCapture={hasMandatoryCapture}
               isChainActive={Boolean(game.forcedSequence)}
+              isCpuTurn={isCpuTurn}
+              isCpuThinking={isCpuThinking}
             />
 
             {statusToast ? (
@@ -189,6 +199,8 @@ export default function Tela3({ navigation }) {
               capturedByPlayer={game.capturedByPlayer}
               sessionWins={game.sessionWins}
               currentPlayer={game.currentPlayer}
+              mode={game.mode}
+              cpuConfig={game.cpuConfig}
             />
 
             <View style={styles.actionStack}>

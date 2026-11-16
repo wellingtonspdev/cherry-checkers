@@ -15,6 +15,18 @@ export const GAME_PHASES = {
   FINISHED: 'finished',
 };
 
+export const GAME_MODES = {
+  PVP: 'pvp',
+  CPU: 'cpu',
+};
+
+export const CPU_DIFFICULTIES = {
+  EASY: 'easy',
+  MEDIUM: 'medium',
+  HARD: 'hard',
+  MASTER: 'master',
+};
+
 export const PROMOTION_ROW = {
   [PLAYERS.CREAM]: 0,
   [PLAYERS.CHERRY]: BOARD_SIZE - 1,
