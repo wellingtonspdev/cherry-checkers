@@ -2,7 +2,7 @@ import js from '@eslint/js';
 
 export default [
   {
-    ignores: ['dist/**', 'snack-sdk54/**', 'node_modules/**'],
+    ignores: ['dist/**', 'snack-sdk54/**', 'node_modules/**', 'public/**'],
   },
   js.configs.recommended,
   {

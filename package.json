@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "export:web": "expo export --platform web",
+    "export:web": "expo export --platform web && node scripts/inject-pwa-head.mjs",
     "export:snack": "node scripts/export-snack.mjs",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint": "eslint App.js tela1.js tela2.js tela3.js tela4.js src scripts"
